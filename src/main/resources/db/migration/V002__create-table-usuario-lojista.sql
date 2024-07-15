@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS usuario_lojista(
+id SERIAL PRIMARY KEY,
+nome_completo VARCHAR(22) NOT NULL,
+cpf VARCHAR(11) NOT NULL,
+email VARCHAR(20) NOT NULL,
+senha VARCHAR(60) NOT NULL,
+saldo_conta DECIMAL(10,2)
+);
