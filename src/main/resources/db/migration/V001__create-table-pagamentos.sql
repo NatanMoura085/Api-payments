@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS usuario_comum(
+id SERIAL PRIMARY KEY,
+nome_completo VARCHAR(22) NOT NULL,
+cpf VARCHAR(11) NOT NULL,
+email VARCHAR NOT NULL,
+senha VARCHAR(60) NOT NULL,
+saldo_da_conta DECIMAL(10,2)
+);
