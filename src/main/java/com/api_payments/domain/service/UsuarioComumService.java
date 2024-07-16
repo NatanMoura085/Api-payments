@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +24,8 @@ public class UsuarioComumService {
         return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
     }
     @Transactional
-    public UsuarioComum cadastrarUsuarioComun(UsuarioComum usuarioComum){
+    public UsuarioComum cadastra(UsuarioComum usuarioComum){
+
         return usuarioComumRepository.save(usuarioComum);
     }
 }
