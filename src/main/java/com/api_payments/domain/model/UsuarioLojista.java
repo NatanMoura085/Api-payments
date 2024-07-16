@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 @Entity
-@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
