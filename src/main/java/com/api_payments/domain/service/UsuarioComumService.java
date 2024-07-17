@@ -29,6 +29,14 @@ public class UsuarioComumService {
     }
     @Transactional
     public UsuarioComum cadastra(UsuarioComum usuarioComum){
+        Optional cpfEmUso = usuarioComumRepository.findBycpf(usuarioComum.getCpf());
+        Optional emailEmUso = usuarioComumRepository.findByemail(usuarioComum.getEmail());
+        if (cpfEmUso.isPresent()){
+          throw new UsuarioException("O Cpf já esta em uso");
+        }
+        if (emailEmUso.isPresent()){
+            throw new UsuarioException("O email ja esta em uso");
+        }
 
         return usuarioComumRepository.save(usuarioComum);
     }

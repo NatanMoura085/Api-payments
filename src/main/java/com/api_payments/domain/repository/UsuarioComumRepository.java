@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface UsuarioComumRepository extends JpaRepository<UsuarioComum,Long> {
     Optional<UsuarioComum> findBycpf(String cpf);
+    Optional<UsuarioComum> findByemail(String email);
 
 }
