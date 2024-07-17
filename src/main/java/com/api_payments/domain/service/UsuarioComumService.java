@@ -15,6 +15,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioComumService {
     private UsuarioComumRepository usuarioComumRepository;
+    public ResponseEntity<UsuarioComum> buscarID(Long id){
+        return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
+    }
+
     @Transactional
     public List<UsuarioComum> buscar(){
         return usuarioComumRepository.findAll();
@@ -27,5 +31,23 @@ public class UsuarioComumService {
     public UsuarioComum cadastra(UsuarioComum usuarioComum){
 
         return usuarioComumRepository.save(usuarioComum);
+    }
+
+    @Transactional
+    public ResponseEntity<UsuarioComum> atualizar(Long id,UsuarioComum usuarioComum){
+     if (!usuarioComumRepository.existsById(id)){
+         return ResponseEntity.notFound().build();
+     }
+       usuarioComum.setId(id);
+     UsuarioComum usuarioComumAtualiza = usuarioComumRepository.save(usuarioComum);
+
+     return ResponseEntity.ok(usuarioComumAtualiza);
+
+
+    }
+
+    @Transactional
+    public void removendo(Long id){
+       usuarioComumRepository.deleteById(id);
     }
 }
