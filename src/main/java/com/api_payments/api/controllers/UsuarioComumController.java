@@ -1,5 +1,7 @@
 package com.api_payments.api.controllers;
 
+import com.api_payments.api.assembler.Assembler;
+import com.api_payments.api.dto.UsuarioComumDTO;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.service.UsuarioComumService;
 import jakarta.validation.Valid;
@@ -9,13 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("v1/api")
 public class UsuarioComumController {
     private final UsuarioComumService usuarioComumService;
+private final Assembler assembler;
     @GetMapping("/usuarios")
     public List<UsuarioComum> buscarTodos(){
         return usuarioComumService.buscar();
@@ -26,8 +28,8 @@ public class UsuarioComumController {
 }
 @ResponseStatus(HttpStatus.OK)
 @PostMapping("/usuarios")
-public UsuarioComum cadastraUsuarioComum(@Valid @RequestBody UsuarioComum usuarioComum){
-       return usuarioComumService.cadastra(usuarioComum);
+public UsuarioComumDTO cadastraUsuarioComum(@Valid @RequestBody UsuarioComum usuarioComum){
+       return assembler.toModelMap(usuarioComumService.cadastra(usuarioComum));
 
 }
 
