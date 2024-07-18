@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("v1/api")
 public class UsuarioComumController {
     private final UsuarioComumService usuarioComumService;
-private final Assembler assembler;
+    private final Assembler assembler;
     @GetMapping("/usuarios")
-    public List<UsuarioComum> buscarTodos(){
-        return usuarioComumService.buscar();
+    public List<UsuarioComumDTO> buscarTodos(){
+        return assembler.toCollectionMap(usuarioComumService.buscar());
     }
     @GetMapping("/usuarios/{usuarioComumId}")
     public ResponseEntity<UsuarioComum> buscaUsuarioComumPeloId(@PathVariable Long usuarioComumId){

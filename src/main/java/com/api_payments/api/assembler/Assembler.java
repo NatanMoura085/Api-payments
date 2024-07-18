@@ -8,6 +8,10 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Component
 @AllArgsConstructor
 public class Assembler {
@@ -21,8 +25,9 @@ public class Assembler {
         return modelMapper.map(usuarioComum,UsuarioComumDTO.class);
     }
 
-//    public List<UsuarioComum> toCollectionMap(List<UsuarioComum> usuarioComums){
-//        return modelMapper;
-//   }
+    public List<UsuarioComumDTO> toCollectionMap(List<UsuarioComum> usuarioComums){
+       List<UsuarioComumDTO> dtos = usuarioComums.stream().map(usuarioComum -> modelMapper.map(usuarioComum,UsuarioComumDTO.class)).collect(Collectors.toList());
+       return dtos;
+   }
 
 }
