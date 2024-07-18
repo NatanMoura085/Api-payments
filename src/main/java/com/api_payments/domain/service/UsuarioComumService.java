@@ -1,5 +1,6 @@
 package com.api_payments.domain.service;
 
+import com.api_payments.api.dto.UsuarioComumDTO;
 import com.api_payments.domain.exceptionhandler.UsuarioException;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.repository.UsuarioComumRepository;

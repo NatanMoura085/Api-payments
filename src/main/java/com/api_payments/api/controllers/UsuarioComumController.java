@@ -2,6 +2,7 @@ package com.api_payments.api.controllers;
 
 import com.api_payments.api.assembler.Assembler;
 import com.api_payments.api.dto.UsuarioComumDTO;
+import com.api_payments.api.dto.inputDTO.UsuarioComumInputDTO;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.service.UsuarioComumService;
 import jakarta.validation.Valid;
@@ -28,8 +29,9 @@ private final Assembler assembler;
 }
 @ResponseStatus(HttpStatus.OK)
 @PostMapping("/usuarios")
-public UsuarioComumDTO cadastraUsuarioComum(@Valid @RequestBody UsuarioComum usuarioComum){
-       return assembler.toModelMap(usuarioComumService.cadastra(usuarioComum));
+public UsuarioComumDTO cadastraUsuarioComum(@Valid @RequestBody UsuarioComumInputDTO usuarioComumInputDTO){
+        UsuarioComum usuarioComum =assembler.toEntity(usuarioComumInputDTO);
+       return assembler.convertEntityToDTO(usuarioComumService.cadastra(usuarioComum));
 
 }
 
