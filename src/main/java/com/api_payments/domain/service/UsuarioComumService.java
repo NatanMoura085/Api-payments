@@ -1,5 +1,6 @@
 package com.api_payments.domain.service;
 
+import com.api_payments.api.assembler.Assembler;
 import com.api_payments.api.dto.UsuarioComumDTO;
 import com.api_payments.domain.exceptionhandler.UsuarioException;
 import com.api_payments.domain.model.UsuarioComum;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioComumService {
     private UsuarioComumRepository usuarioComumRepository;
+    private Assembler assembler;
     public ResponseEntity<UsuarioComum> buscarID(Long id){
         return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
     }
@@ -43,14 +45,14 @@ public class UsuarioComumService {
     }
 
     @Transactional
-    public ResponseEntity<UsuarioComum> atualizar(Long id,UsuarioComum usuarioComum){
+    public ResponseEntity<UsuarioComumDTO> atualizar(Long id,UsuarioComum usuarioComum){
      if (!usuarioComumRepository.existsById(id)){
          return ResponseEntity.notFound().build();
      }
        usuarioComum.setId(id);
      UsuarioComum usuarioComumAtualiza = usuarioComumRepository.save(usuarioComum);
 
-     return ResponseEntity.ok(usuarioComumAtualiza);
+     return ResponseEntity.ok(assembler.convertEntityToDTO(usuarioComumAtualiza));
 
 
     }

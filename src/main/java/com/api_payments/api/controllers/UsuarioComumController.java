@@ -36,8 +36,8 @@ public UsuarioComumDTO cadastraUsuarioComum(@Valid @RequestBody UsuarioComumInpu
 }
 
 @PutMapping("/usuarios/{id}")
-public ResponseEntity<UsuarioComum> atualizarUsuarioComum(@Valid @RequestBody UsuarioComum usuarioComum, @PathVariable Long id){
-        return usuarioComumService.atualizar(id,usuarioComum);
+public ResponseEntity<UsuarioComumDTO> atualizarUsuarioComum(@Valid @RequestBody UsuarioComumInputDTO usuarioComumInputDTO, @PathVariable Long id){
+        return usuarioComumService.atualizar(id,assembler.toEntity(usuarioComumInputDTO));
 }
 
 @ResponseStatus(HttpStatus.NO_CONTENT)
