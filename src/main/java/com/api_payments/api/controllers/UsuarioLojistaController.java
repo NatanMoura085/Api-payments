@@ -2,9 +2,10 @@ package com.api_payments.api.controllers;
 
 import com.api_payments.domain.model.UsuarioLojista;
 import com.api_payments.domain.service.UsuarioLojistaService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +18,14 @@ public class UsuarioLojistaController {
     public List<UsuarioLojista> buscaTodosUsuarioLojista(){
         return usuarioLojistaService.buscaTodosLojista();
     }
+ @RequestMapping("/lojista/{id}")
+ @GetMapping
+ public ResponseEntity<UsuarioLojista> buscaPeloIdLojistaUsuario(@PathVariable Long id){
+        return usuarioLojistaService.buscaPorIdLojista(id);
+ }
 
-
+ @PostMapping("/lojista")
+ public UsuarioLojista cadastrar(@Valid @RequestBody UsuarioLojista usuarioLojista){
+        return usuarioLojistaService.cadastrarLojista(usuarioLojista);
+ }
 }

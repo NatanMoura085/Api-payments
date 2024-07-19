@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.math.BigDecimal;
 @Entity
@@ -21,7 +22,7 @@ public class UsuarioLojista {
     private Long id;
     @NotNull
     private String nomeCompleto;
-    @Max(11)
+    @CPF
     private String cpf;
     private String email;
     @NotNull
