@@ -28,4 +28,9 @@ public class UsuarioLojistaController {
  public UsuarioLojista cadastrar(@Valid @RequestBody UsuarioLojista usuarioLojista){
         return usuarioLojistaService.cadastrarLojista(usuarioLojista);
  }
+
+ @PutMapping("/lojista/{id}")
+ public ResponseEntity<UsuarioLojista> autualizarLojista(@PathVariable Long id, @Valid @RequestBody UsuarioLojista usuarioLojista){
+        return usuarioLojistaService.atualizar(id,usuarioLojista);
+ }
 }
