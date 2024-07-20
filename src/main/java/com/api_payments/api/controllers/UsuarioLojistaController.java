@@ -33,4 +33,9 @@ public class UsuarioLojistaController {
  public ResponseEntity<UsuarioLojista> autualizarLojista(@PathVariable Long id, @Valid @RequestBody UsuarioLojista usuarioLojista){
         return usuarioLojistaService.atualizar(id,usuarioLojista);
  }
+
+ @DeleteMapping("/lojista/{id}")
+ public void removendoLojista(@PathVariable Long id){
+         usuarioLojistaService.remove(id);
+ }
 }
