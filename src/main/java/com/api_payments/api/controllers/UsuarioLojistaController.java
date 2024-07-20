@@ -1,5 +1,8 @@
 package com.api_payments.api.controllers;
 
+import com.api_payments.api.assembler.Assembler;
+import com.api_payments.api.dto.UsuarioLojistaDTO;
+import com.api_payments.api.dto.inputDTO.UsuarioLojistaInputDTO;
 import com.api_payments.domain.model.UsuarioLojista;
 import com.api_payments.domain.service.UsuarioLojistaService;
 import jakarta.validation.Valid;
@@ -14,9 +17,10 @@ import java.util.List;
 @RequestMapping("v1/api")
 public class UsuarioLojistaController {
     private final UsuarioLojistaService usuarioLojistaService;
+    private final Assembler assembler;
     @RequestMapping("/lojista")
-    public List<UsuarioLojista> buscaTodosUsuarioLojista(){
-        return usuarioLojistaService.buscaTodosLojista();
+    public List<UsuarioLojistaDTO> buscaTodosUsuarioLojista(){
+        return assembler.toCollectionMapLojista(usuarioLojistaService.buscaTodosLojista());
     }
  @RequestMapping("/lojista/{id}")
  @GetMapping
@@ -25,8 +29,9 @@ public class UsuarioLojistaController {
  }
 
  @PostMapping("/lojista")
- public UsuarioLojista cadastrar(@Valid @RequestBody UsuarioLojista usuarioLojista){
-        return usuarioLojistaService.cadastrarLojista(usuarioLojista);
+ public UsuarioLojistaDTO cadastrar(@Valid @RequestBody UsuarioLojistaInputDTO usuarioLojistaInputDTO){
+        UsuarioLojista usuarioLojista = assembler.toEntityLojista(usuarioLojistaInputDTO);
+        return assembler.convertEntityToDTOLojista(usuarioLojistaService.cadastrarLojista(usuarioLojista));
  }
 
  @PutMapping("/lojista/{id}")
