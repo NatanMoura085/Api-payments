@@ -61,4 +61,7 @@ public class UsuarioComumService {
     public void removendo(Long id){
        usuarioComumRepository.deleteById(id);
     }
+
 }
+
+

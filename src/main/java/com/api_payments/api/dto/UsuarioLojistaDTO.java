@@ -17,6 +17,6 @@ public class UsuarioLojistaDTO {
     private String cpf;
     private String email;
     private String senha;
-    @Column(name = "saldo_conta")
+    @Column(name = "saldo_conta",precision =38,scale = 2)
     private BigDecimal saldoConta;
 }

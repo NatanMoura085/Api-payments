@@ -1,10 +1,10 @@
 package com.api_payments.domain.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.math.BigDecimal;
@@ -24,7 +24,10 @@ public class UsuarioComum {
     private String cpf;
     private String email;
     private String senha;
-    @Column(name = "saldo_da_conta")
+    @Column(name = "saldo_da_conta",precision = 38,scale = 2)
     private BigDecimal saldoConta;
+    @Transient
+
+    private UsuarioLojista usuarioLojista;
 
 }
