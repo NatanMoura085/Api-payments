@@ -8,6 +8,9 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -26,8 +29,7 @@ public class UsuarioComum {
     private String senha;
     @Column(name = "saldo_da_conta",precision = 38,scale = 2)
     private BigDecimal saldoConta;
-    @Transient
 
-    private UsuarioLojista usuarioLojista;
-
+    @OneToMany(mappedBy = "senderID")
+    private List<Transaction> transactions = new ArrayList<>();
 }
