@@ -31,5 +31,5 @@ public class UsuarioComum {
     private BigDecimal saldoConta;
 
     @OneToMany(mappedBy = "senderID")
-    private List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> transactions;
 }

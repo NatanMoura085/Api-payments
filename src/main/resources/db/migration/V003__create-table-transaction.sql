@@ -1,7 +1,8 @@
-CREATE TABLE transação (
+
+CREATE TABLE IF NOT EXISTS transação (
     id BIGSERIAL PRIMARY KEY,
-    usuario_id BIGINT NOT NULL,
-    lojista_id BIGINT NOT NULL,
+    senderID BIGINT NOT NULL,
+    receivedID BIGINT NOT NULL,
     valor DECIMAL(19, 2) NOT NULL,
     data_transaction TIMESTAMP WITH TIME ZONE NOT NULL,
     status VARCHAR(50) NOT NULL
@@ -9,8 +10,8 @@ CREATE TABLE transação (
 
 ALTER TABLE transação
 ADD CONSTRAINT fk_transação_usuario
-FOREIGN KEY (usuario_id) REFERENCES usuario_comum(id);
+FOREIGN KEY (senderID) REFERENCES usuario_comum(id);
 
 ALTER TABLE transação
 ADD CONSTRAINT fk_transação_lojista
-FOREIGN KEY (lojista_id) REFERENCES usuario_lojista(id);
+FOREIGN KEY (receivedID) REFERENCES usuario_lojista(id);

@@ -1,5 +1,6 @@
 package com.api_payments.domain.service;
 
+import com.api_payments.domain.exceptionhandler.TransactionException;
 import com.api_payments.domain.model.Transaction;
 import com.api_payments.domain.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,6 @@ public class TransactionService {
 
     @Transactional
     public ResponseEntity<Transaction> todasTrasaçoes(Long id){
-        return transactionRepository.findById(id).map(ResponseEntity::ok).orElseThrow();
+        return transactionRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new TransactionException("sem transações esse id"));
     }
 }
