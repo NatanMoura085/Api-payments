@@ -16,10 +16,12 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "usuario_id")
-    private Long senderID;
-    @Column(name = "lojista_id")
-    private Long receivedID;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuarioComum senderID;
+    @ManyToOne
+    @JoinColumn(name = "lojista_id")
+    private UsuarioLojista receivedID;
     private BigDecimal valor;
     @Column(name = "data_transaction")
     private OffsetDateTime dataTrasaction;
