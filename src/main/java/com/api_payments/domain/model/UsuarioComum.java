@@ -1,5 +1,6 @@
 package com.api_payments.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
@@ -29,7 +30,7 @@ public class UsuarioComum {
     private String senha;
     @Column(name = "saldo_da_conta",precision = 38,scale = 2)
     private BigDecimal saldoConta;
-
-    @OneToMany(mappedBy = "senderID")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "senderID",cascade = CascadeType.REMOVE)
     private List<Transaction> transactions;
 }
