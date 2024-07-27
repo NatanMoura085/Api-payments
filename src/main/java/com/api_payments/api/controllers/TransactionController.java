@@ -6,11 +6,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("v1/api")
 public class TransactionController {
     private final TransactionService transactionService;
+
+    @GetMapping("/transaçoes")
+    public List<Transaction> transactionList(){
+        return transactionService.getAll();
+    }
     @GetMapping("/transaçoes/{id}")
     public ResponseEntity<Transaction> listaDeTransaçoes(@PathVariable Long id){
         return transactionService.todasTrasaçoes(id);
