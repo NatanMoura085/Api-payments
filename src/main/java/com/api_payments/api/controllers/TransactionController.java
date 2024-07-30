@@ -1,6 +1,8 @@
 package com.api_payments.api.controllers;
 
 import com.api_payments.domain.model.Transaction;
+import com.api_payments.domain.model.UsuarioComum;
+import com.api_payments.domain.model.UsuarioLojista;
 import com.api_payments.domain.service.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ public class TransactionController {
         return transactionService.todasTrasaçoes(id);
     }
     @PostMapping("/transaçoes")
-    public Transaction cadastrarTrnsaçao(@RequestBody Transaction transaction){
-        return transactionService.fazerTransaçao(transaction);
+    public Transaction cadastrarTrnsaçao(@RequestBody Transaction transaction, @RequestParam Long receivedid_id, @RequestParam Long senderid){
+        return transactionService.fazerTransaçao(transaction,receivedid_id,senderid);
     }
 }

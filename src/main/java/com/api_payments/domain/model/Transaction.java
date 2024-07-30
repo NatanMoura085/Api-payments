@@ -30,4 +30,12 @@ public class Transaction {
     private OffsetDateTime dataTransaction;
     @Enumerated(EnumType.STRING)
     private StatusTransaction status;
+
+
+    public Transaction(UsuarioComum usuarioComum, UsuarioLojista usuarioLojista){
+        this.senderID = usuarioComum;
+        this.receivedID = usuarioLojista;
+
+    }
+
 }
