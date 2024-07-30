@@ -26,6 +26,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final UsuarioLojistaRepository usuarioLojistaRepository;
     private final UsuarioComumRepository usuarioComumRepository;
+    private final EmailService emailService;
     @Transactional
     public void calcularSubs(BigDecimal valor,Long lojistaId,Long usuarioId,UsuarioComum usuarioComum,UsuarioLojista usuarioLojista) {
        Optional<UsuarioComum> usuarioIDConsult = usuarioComumRepository.findById(usuarioId);
@@ -74,7 +75,7 @@ public class TransactionService {
         transaction.setSenderID(usuarioComum);
         transaction.setReceivedID(usuarioLojista);
 
-
+       emailService.sendEmail("rrenato087@gmail.com","parabens pela transiçao","vode esta recebendo");
 
         return transactionRepository.save(transaction);
     }
