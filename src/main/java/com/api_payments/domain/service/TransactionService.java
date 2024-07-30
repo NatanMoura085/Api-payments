@@ -36,6 +36,7 @@ public class TransactionService {
             UsuarioLojista usuarioLojista1 = lojistaIDConsult.get();
             usuarioComum1.setSaldoConta(usuarioComum1.getSaldoConta().subtract(valor));
             usuarioLojista1.setSaldoConta(usuarioLojista1.getSaldoConta().add(valor));
+
         }
         usuarioComum.setId(usuarioId);
         usuarioLojista.setId(lojistaId);
@@ -61,7 +62,7 @@ public class TransactionService {
         UsuarioComum usuarioComum = optionalUsuarioComum.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
       Optional<UsuarioLojista> OPtionalusuarioLojista = usuarioLojistaRepository.findById(lojistaId);
-      UsuarioLojista usuarioLojista = OPtionalusuarioLojista.orElseThrow(()-> new TransactionException("deu erro"));
+      UsuarioLojista usuarioLojista = OPtionalusuarioLojista.orElseThrow(()-> new TransactionException("lojista nao encontrado"));
        calcularSubs(transaction.getValor(),lojistaId,usuarioId, usuarioComum,usuarioLojista);
         if (transaction.equals(transaction.getStatus().equals(StatusTransaction.FAILED))){
           throw new TransactionException("Error na trasaçao faliu");
