@@ -4,6 +4,7 @@ import com.api_payments.domain.model.Transaction;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.model.UsuarioLojista;
 import com.api_payments.domain.service.TransactionService;
+import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class TransactionController {
         return transactionService.todasTrasaçoes(id);
     }
     @PostMapping("/transaçoes")
-    public Transaction cadastrarTrnsaçao(@RequestBody Transaction transaction, @RequestParam Long receivedid_id, @RequestParam Long senderid){
+    public Transaction cadastrarTrnsaçao(@RequestBody Transaction transaction, @RequestParam Long receivedid_id, @RequestParam Long senderid) throws MessagingException {
         return transactionService.fazerTransaçao(transaction,receivedid_id,senderid);
     }
 }
