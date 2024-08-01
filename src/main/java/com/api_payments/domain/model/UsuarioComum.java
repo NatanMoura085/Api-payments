@@ -31,6 +31,6 @@ public class UsuarioComum {
     @Column(name = "saldo_da_conta",precision = 38,scale = 2)
     private BigDecimal saldoConta;
     @JsonManagedReference
-    @OneToMany(mappedBy = "senderID",cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "senderID",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Transaction> transactions= new ArrayList<>();
 }
