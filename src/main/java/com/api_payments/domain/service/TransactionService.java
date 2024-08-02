@@ -37,8 +37,13 @@ public class TransactionService {
         if (usuarioIDConsult.isPresent() && lojistaIDConsult.isPresent()) {
             UsuarioComum usuarioComum1 = usuarioIDConsult.get();
             UsuarioLojista usuarioLojista1 = lojistaIDConsult.get();
+            if (usuarioComum1.getSaldoConta().equals(0.00) || usuarioComum1.getSaldoConta().signum() ==-1) {
+                throw new TransactionException("você não tem dinheiro no saldo");
+            }
+
             usuarioComum1.setSaldoConta(usuarioComum1.getSaldoConta().subtract(valor));
             usuarioLojista1.setSaldoConta(usuarioLojista1.getSaldoConta().add(valor));
+
             usuarioComumRepository.save(usuarioComum1);
             usuarioLojistaRepository.save(usuarioLojista1);
 
