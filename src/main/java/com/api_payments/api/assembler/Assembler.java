@@ -1,9 +1,12 @@
 package com.api_payments.api.assembler;
 
+import com.api_payments.api.dto.TransactionDTO;
 import com.api_payments.api.dto.UsuarioComumDTO;
 import com.api_payments.api.dto.UsuarioLojistaDTO;
+import com.api_payments.api.dto.inputDTO.TransactionInputDTO;
 import com.api_payments.api.dto.inputDTO.UsuarioComumInputDTO;
 import com.api_payments.api.dto.inputDTO.UsuarioLojistaInputDTO;
+import com.api_payments.domain.model.Transaction;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.model.UsuarioLojista;
 import jakarta.validation.Valid;
@@ -21,6 +24,20 @@ public class Assembler {
 
     public UsuarioComum toEntity(@Valid UsuarioComumInputDTO usuarioComumDTO) {
         return modelMapper.map(usuarioComumDTO, UsuarioComum.class);
+    }
+    public Transaction toEntityTransaction(TransactionDTO transactionDTO){
+        return modelMapper.map(transactionDTO,Transaction.class);
+    }
+    public Transaction toEntityTransactionINput(TransactionInputDTO transactionInputDTO){
+        return modelMapper.map(transactionInputDTO,Transaction.class);
+    }
+    public TransactionDTO convertEntityDTO(Transaction transaction){
+        return modelMapper.map(transaction,TransactionDTO.class);
+    }
+
+    public List<TransactionDTO> toMapCollectionTransactions(List<Transaction> transactions){
+        List<TransactionDTO> dtos = transactions.stream().map(transaction -> modelMapper.map(transaction,TransactionDTO.class)).collect(Collectors.toList());
+        return dtos;
     }
 
     public UsuarioLojista toEntityLojista(@Valid UsuarioLojistaInputDTO usuarioLojistaInputDTO){
