@@ -30,6 +30,9 @@ public class UsuarioComum {
     private String senha;
     @Column(name = "saldo_da_conta",precision = 38,scale = 2)
     private BigDecimal saldoConta;
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "login_id",referencedColumnName = "id")
+    private Login login;
     @JsonManagedReference
     @OneToMany(mappedBy = "senderID",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Transaction> transactions= new ArrayList<>();

@@ -7,6 +7,7 @@ import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.repository.UsuarioComumRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UsuarioComumService {
     private UsuarioComumRepository usuarioComumRepository;
+    private PasswordEncoder passwordEncoder;
     private Assembler assembler;
     public ResponseEntity<UsuarioComum> buscarID(Long id){
         return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
@@ -40,6 +42,7 @@ public class UsuarioComumService {
         if (emailEmUso.isPresent()){
             throw new UsuarioException("O email ja esta em uso");
         }
+          usuarioComum.setSenha(passwordEncoder.encode(usuarioComum.getSenha()));
 
         return usuarioComumRepository.save(usuarioComum);
     }

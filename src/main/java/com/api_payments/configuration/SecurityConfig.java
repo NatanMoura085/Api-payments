@@ -20,8 +20,10 @@ public class SecurityConfig {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorization -> authorization.
-                        requestMatchers(HttpMethod.POST, "/transaçoes").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/v1/api/usuarios").permitAll()
+                        requestMatchers(HttpMethod.POST, "/v1/api/transaçoes").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/v1/api/lojista").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/v1/api/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/v1/api/usuarios").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
