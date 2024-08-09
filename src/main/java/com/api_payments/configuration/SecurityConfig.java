@@ -26,6 +26,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/v1/api/lojista").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/v1/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/v1/api/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/v1/api/auth").permitAll()
+                        .requestMatchers(HttpMethod.POST,"v1/api/registra").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }

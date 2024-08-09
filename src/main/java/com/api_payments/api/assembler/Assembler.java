@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class Assembler {
     private ModelMapper modelMapper;
 
+
     public UsuarioComum toEntity(@Valid UsuarioComumInputDTO usuarioComumDTO) {
         return modelMapper.map(usuarioComumDTO, UsuarioComum.class);
     }

@@ -15,6 +15,7 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TransactionDTO {
     @EqualsAndHashCode.Include
     private Long id;
