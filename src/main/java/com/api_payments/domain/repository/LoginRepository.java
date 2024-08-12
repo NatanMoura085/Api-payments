@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface LoginRepository extends JpaRepository<Login,Long> {
     Optional<UserDetails> findBylogin(String login);
-//    @Query("SELECT l FROM Login l WHERE l.login = :login")
-//    Login findByLogin(@Param("login") String login);
+    @Query("SELECT l FROM Login l WHERE l.login = :login")
+   Login findByLogin2(@Param("login") String login);
 
 }

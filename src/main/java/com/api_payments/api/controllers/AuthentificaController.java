@@ -2,8 +2,8 @@ package com.api_payments.api.controllers;
 
 import com.api_payments.api.dto.AuthDTO;
 import com.api_payments.domain.model.Login;
-import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.repository.LoginRepository;
+import com.api_payments.domain.service.AutenticaçaoService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ public class AuthentificaController {
     private AuthenticationManager authenticationManager;
     private final LoginRepository loginRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AutenticaçaoService autenticaçaoService;
     private static final Logger logger = LoggerFactory.getLogger(AuthentificaController.class);
 
     @PostMapping("/auth")
@@ -32,7 +33,7 @@ public class AuthentificaController {
             logger.error("authentificaçao falhou em NATAN", authDTO.getLogin(), authDTO.getSenha().concat("{noop}"));
             throw new RuntimeException(e.getMessage());
         }
-        return "token...";
+        return autenticaçaoService.obterToken(authDTO);
     }
 
     @PostMapping("/registra")
