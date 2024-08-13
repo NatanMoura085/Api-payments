@@ -7,6 +7,7 @@ import com.api_payments.domain.repository.LoginRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,5 +59,22 @@ public class AutenticaçãoServiceIMP implements AutenticaçaoService {
 
     private Instant geraDataDoToken() {
         return LocalDateTime.now().plusHours(8).toInstant(ZoneOffset.of("-03:00"));
+    }
+
+    public String validarTokenJwt(String token) {
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("minha-senha");
+
+            return JWT.require(algorithm)
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+
+        } catch (JWTVerificationException e) {
+            throw new RuntimeException("error na verificaçao do token" + e.getMessage());
+
+        }
     }
 }
