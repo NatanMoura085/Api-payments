@@ -33,7 +33,7 @@ public class AuthentificaController {
             logger.error("authentificaçao falhou em NATAN", authDTO.getLogin(), authDTO.getSenha().concat("{noop}"));
             throw new RuntimeException(e.getMessage());
         }
-        return  "token: " + autenticaçaoService.obterToken(authDTO);
+        return "token: " + autenticaçaoService.obterToken(authDTO);
     }
 
     @PostMapping("/registra")

@@ -1,8 +1,5 @@
 package com.api_payments.domain.model;
 
-import com.api_payments.domain.model.StatusTransaction;
-import com.api_payments.domain.model.UsuarioComum;
-import com.api_payments.domain.model.UsuarioLojista;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;

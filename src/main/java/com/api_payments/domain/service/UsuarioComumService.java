@@ -20,49 +20,59 @@ public class UsuarioComumService {
     private UsuarioComumRepository usuarioComumRepository;
     private PasswordEncoder passwordEncoder;
     private Assembler assembler;
-    public ResponseEntity<UsuarioComum> buscarID(Long id){
-        return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
+
+    public ResponseEntity<UsuarioComum> buscarID(Long id) {
+        return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(() -> new UsuarioException("usuario com esse id nao existir"));
     }
 
     @Transactional
-    public List<UsuarioComum> buscar(){
+    public List<UsuarioComum> buscar() {
         return usuarioComumRepository.findAll();
     }
+
     @Transactional
-    public ResponseEntity<UsuarioComum> buscarPeloId(Long id){
-        return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(()-> new UsuarioException("usuario com esse id nao existir"));
+    public ResponseEntity<UsuarioComum> buscarPeloId(Long id) {
+        return usuarioComumRepository.findById(id).map(ResponseEntity::ok).orElseThrow(() -> new UsuarioException("usuario com esse id nao existir"));
     }
+
     @Transactional
-    public UsuarioComum cadastra(UsuarioComum usuarioComum){
+    public UsuarioComum cadastra(UsuarioComum usuarioComum) {
         Optional cpfEmUso = usuarioComumRepository.findBycpf(usuarioComum.getCpf());
         Optional emailEmUso = usuarioComumRepository.findByemail(usuarioComum.getEmail());
-        if (cpfEmUso.isPresent()){
-          throw new UsuarioException("O Cpf já esta em uso");
+        if (cpfEmUso.isPresent()) {
+            throw new UsuarioException("O Cpf já esta em uso");
         }
-        if (emailEmUso.isPresent()){
+        if (emailEmUso.isPresent()) {
             throw new UsuarioException("O email ja esta em uso");
         }
-          usuarioComum.setSenha(passwordEncoder.encode(usuarioComum.getSenha()));
+        UsuarioComum usuarioComum1 = new UsuarioComum.Builder()
+                .withNOMECOMPLETO(usuarioComum.getNomeCompleto())
+                .withCPF(usuarioComum.getCpf())
+                .withEMAIL(usuarioComum.getEmail())
+                .withSENHA(passwordEncoder.encode(usuarioComum.getPassword()))
+                .withSALDODACONTA(usuarioComum.getSaldoConta())
+                .withLOGIN(usuarioComum.getLogin())
+                .builder();
 
-        return usuarioComumRepository.save(usuarioComum);
+        return usuarioComumRepository.save(usuarioComum1);
     }
 
     @Transactional
-    public ResponseEntity<UsuarioComumDTO> atualizar(Long id,UsuarioComum usuarioComum){
-     if (!usuarioComumRepository.existsById(id)){
-         return ResponseEntity.notFound().build();
-     }
-       usuarioComum.setId(id);
-     UsuarioComum usuarioComumAtualiza = usuarioComumRepository.save(usuarioComum);
+    public ResponseEntity<UsuarioComumDTO> atualizar(Long id, UsuarioComum usuarioComum) {
+        if (!usuarioComumRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        usuarioComum.setId(id);
+        UsuarioComum usuarioComumAtualiza = usuarioComumRepository.save(usuarioComum);
 
-     return ResponseEntity.ok(assembler.convertEntityToDTO(usuarioComumAtualiza));
+        return ResponseEntity.ok(assembler.convertEntityToDTO(usuarioComumAtualiza));
 
 
     }
 
     @Transactional
-    public void removendo(Long id){
-       usuarioComumRepository.deleteById(id);
+    public void removendo(Long id) {
+        usuarioComumRepository.deleteById(id);
     }
 
 }
