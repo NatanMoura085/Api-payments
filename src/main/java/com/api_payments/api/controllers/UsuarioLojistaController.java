@@ -3,6 +3,7 @@ package com.api_payments.api.controllers;
 import com.api_payments.api.assembler.Assembler;
 import com.api_payments.api.dto.UsuarioLojistaDTO;
 import com.api_payments.api.dto.inputDTO.UsuarioLojistaInputDTO;
+import com.api_payments.domain.factory.factoryMethod.UsuarioLojistaFactory;
 import com.api_payments.domain.model.UsuarioLojista;
 import com.api_payments.domain.service.UsuarioLojistaService;
 import jakarta.validation.Valid;
@@ -18,29 +19,40 @@ import java.util.List;
 public class UsuarioLojistaController {
     private final UsuarioLojistaService usuarioLojistaService;
     private final Assembler assembler;
+
     @RequestMapping("/lojista")
-    public List<UsuarioLojistaDTO> buscaTodosUsuarioLojista(){
+    public List<UsuarioLojistaDTO> buscaTodosUsuarioLojista() {
         return assembler.toCollectionMapLojista(usuarioLojistaService.buscaTodosLojista());
     }
- @RequestMapping("/lojista/{id}")
- @GetMapping
- public ResponseEntity<UsuarioLojista> buscaPeloIdLojistaUsuario(@PathVariable Long id){
+
+    @RequestMapping("/lojista/{id}")
+    @GetMapping
+    public ResponseEntity<UsuarioLojista> buscaPeloIdLojistaUsuario(@PathVariable Long id) {
         return usuarioLojistaService.buscaPorIdLojista(id);
- }
+    }
 
- @PostMapping("/lojista")
- public UsuarioLojistaDTO cadastrar(@Valid @RequestBody UsuarioLojistaInputDTO usuarioLojistaInputDTO){
-        UsuarioLojista usuarioLojista = assembler.toEntityLojista(usuarioLojistaInputDTO);
-        return assembler.convertEntityToDTOLojista(usuarioLojistaService.cadastrarLojista(usuarioLojista));
- }
+    @PostMapping("/lojista")
+    public UsuarioLojistaDTO cadastrar(@Valid @RequestBody UsuarioLojistaInputDTO usuarioLojistaInputDTO) {
+        UsuarioLojistaFactory factory = new UsuarioLojistaFactory();
+        UsuarioLojista lojista = factory.createUsuario();
+        lojista.setId(usuarioLojistaInputDTO.getId());
+        lojista.setNomeCompleto(usuarioLojistaInputDTO.getNomeCompleto());
+        lojista.setCpf(usuarioLojistaInputDTO.getCpf());
+        lojista.setSenha(usuarioLojistaInputDTO.getSenha());
+        lojista.setEmail(usuarioLojistaInputDTO.getEmail());
+        lojista.setSaldoConta(usuarioLojistaInputDTO.getSaldoConta());
 
- @PutMapping("/lojista/{id}")
- public ResponseEntity<UsuarioLojista> autualizarLojista(@PathVariable Long id, @Valid @RequestBody UsuarioLojista usuarioLojista){
-        return usuarioLojistaService.atualizar(id,usuarioLojista);
- }
+        //UsuarioLojista usuarioLojista = assembler.toEntityLojista(usuarioLojistaInputDTO);
+        return assembler.convertEntityToDTOLojista(usuarioLojistaService.cadastrarLojista(lojista));
+    }
 
- @DeleteMapping("/lojista/{id}")
- public void removendoLojista(@PathVariable Long id){
-         usuarioLojistaService.remove(id);
- }
+    @PutMapping("/lojista/{id}")
+    public ResponseEntity<UsuarioLojista> autualizarLojista(@PathVariable Long id, @Valid @RequestBody UsuarioLojista usuarioLojista) {
+        return usuarioLojistaService.atualizar(id, usuarioLojista);
+    }
+
+    @DeleteMapping("/lojista/{id}")
+    public void removendoLojista(@PathVariable Long id) {
+        usuarioLojistaService.remove(id);
+    }
 }

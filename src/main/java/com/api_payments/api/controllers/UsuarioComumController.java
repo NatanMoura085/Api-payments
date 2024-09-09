@@ -3,6 +3,7 @@ package com.api_payments.api.controllers;
 import com.api_payments.api.assembler.Assembler;
 import com.api_payments.api.dto.UsuarioComumDTO;
 import com.api_payments.api.dto.inputDTO.UsuarioComumInputDTO;
+import com.api_payments.domain.factory.factoryMethod.UsuarioComumFactory;
 import com.api_payments.domain.model.UsuarioComum;
 import com.api_payments.domain.service.UsuarioComumService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,6 +43,9 @@ public class UsuarioComumController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/usuarios")
     public UsuarioComumDTO cadastraUsuarioComum(@Valid @RequestBody UsuarioComumInputDTO usuarioComumInputDTO) {
+       // UsuarioComumFactory factory  = new UsuarioComumFactory();
+       // UsuarioComum usuario = factory.createUsuarioComum();
+
         UsuarioComum usuarioComum = assembler.toEntity(usuarioComumInputDTO);
         return assembler.convertEntityToDTO(usuarioComumService.cadastra(usuarioComum));
 
